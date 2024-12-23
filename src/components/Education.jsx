@@ -1,55 +1,76 @@
 // components/Education.jsx
 import React from "react";
-import { Calendar } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "../components/ui/Card";
+import { motion } from "framer-motion";
+import { GraduationCap, Calendar } from "lucide-react";
+import { Card } from "../components/ui/card";
 
 const Education = () => {
   const education = [
     {
       school: "YouCode Maroc",
-      degree: "Développement full stack",
-      period: "septembre 2023 - 2025",
-      description: "Formation en développement web full stack",
+      degree: "Développement Full Stack",
+      period: "2023 - 2025",
+      description:
+        "Formation intensive en développement web moderne avec focus sur React, PHP, et les technologies actuelles.",
     },
     {
       school: "University of the People",
-      degree: "BACCALAURÉAT EN SCIENCES DE LA SANTÉ",
+      degree: "Baccalauréat en Sciences de la Santé",
       period: "2021 - 2024",
-      description: "Formation en sciences de la santé",
+      description:
+        "Formation complète en sciences de la santé avec spécialisation en analyse médicale.",
     },
     {
       school: "Institut des formations",
-      degree: "ATTESTATION EN TECHNIQUE ET MANAGEMENT DE LABORATOIRE",
+      degree: "Technique et Management de Laboratoire",
       period: "2021 - 2022",
-      description: "Formation en gestion de laboratoire",
+      description:
+        "Formation spécialisée en gestion et techniques de laboratoire médical.",
     },
   ];
 
   return (
-    <section id="education" className="py-16 bg-accent/50">
-      <div className="container">
-        <h2 className="text-3xl font-bold mb-12 text-center">Formation</h2>
-        <div className="space-y-6">
+    <section id="education" className="py-20 bg-gray-50 dark:bg-gray-800">
+      <div className="container mx-auto px-4">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-3xl font-bold text-center mb-16"
+        >
+          Formation
+        </motion.h2>
+
+        <div className="space-y-8">
           {education.map((edu, index) => (
-            <Card key={index} className="hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <CardTitle>{edu.degree}</CardTitle>
-                <CardDescription>{edu.school}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                  <Calendar size={16} />
-                  {edu.period}
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2 }}
+            >
+              <Card className="p-6 hover:shadow-lg transition-all">
+                <div className="flex items-start gap-4">
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <GraduationCap className="w-6 h-6 text-primary" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold mb-2">{edu.degree}</h3>
+                    <p className="text-gray-600 dark:text-gray-300 mb-2">
+                      {edu.school}
+                    </p>
+                    <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                      <Calendar size={16} />
+                      <span>{edu.period}</span>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      {edu.description}
+                    </p>
+                  </div>
                 </div>
-                <p>{edu.description}</p>
-              </CardContent>
-            </Card>
+              </Card>
+            </motion.div>
           ))}
         </div>
       </div>
