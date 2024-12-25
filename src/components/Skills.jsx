@@ -1,13 +1,13 @@
 import React, { useState, useMemo } from "react";
-import { Card, CardContent } from "../components/ui/card";
+import { Card, CardContent } from "./ui/card";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../components/ui/select";
-import Input from "../components/ui/input";
+} from "./ui/select";
+import Input from "./ui/input";
 import {
   SiJavascript,
   SiReact,
