@@ -1,5 +1,3 @@
-// src/components/ui/use-toast.js
-
 import { useState } from "react";
 
 const useToast = () => {
@@ -11,7 +9,7 @@ const useToast = () => {
 
     setTimeout(() => {
       setToasts((prev) => prev.filter((toast) => toast.id !== id));
-    }, 3000); // Toast disappears after 3 seconds
+    }, 3000);
   };
 
   return { toasts, addToast };

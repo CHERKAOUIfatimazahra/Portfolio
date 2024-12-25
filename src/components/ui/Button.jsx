@@ -1,4 +1,3 @@
-// src/components/ui/Button.jsx
 export default function Button({ children, onClick, variant = "primary" }) {
   const baseStyle =
     "px-4 py-2 rounded text-white font-medium focus:outline-none";

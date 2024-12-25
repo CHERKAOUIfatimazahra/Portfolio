@@ -1,4 +1,3 @@
-// components/Hero.jsx
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowDownCircle } from "lucide-react";

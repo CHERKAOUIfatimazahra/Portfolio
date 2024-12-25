@@ -1,5 +1,3 @@
-// src/components/ui/Textarea.jsx
-
 import React from "react";
 
 const Textarea = ({ value, onChange, placeholder, rows = 4 }) => {

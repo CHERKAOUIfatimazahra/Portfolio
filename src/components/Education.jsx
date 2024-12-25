@@ -9,8 +9,8 @@ import {
   Binary,
 } from "lucide-react";
 import Card from "./ui/Card";
-import Input from "./ui/input";
-import Badge from "./ui/badge";
+import Input from "./ui/Input";
+import Badge from "./ui/Badge";
 
 const EducationCard = ({ education, index }) => {
   const icons = {

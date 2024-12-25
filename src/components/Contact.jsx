@@ -10,9 +10,9 @@ import {
   Check,
 } from "lucide-react";
 import  Card  from "./ui/Card";
-import Input from "./ui/input";
-import Textarea from "./ui/textarea";
-import Button from "./ui/button";
+import Input from "./ui/Input";
+import Textarea from "./ui/Textarea";
+import Button from "./ui/Button";
 import useToast from "./ui/use-toast";
 
 const ContactIcon = ({ icon: Icon, className }) => (

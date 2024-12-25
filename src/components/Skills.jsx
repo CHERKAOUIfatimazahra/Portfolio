@@ -6,8 +6,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui/select";
-import Input from "./ui/input";
+} from "./ui/Select";
+import Input from "./ui/Input";
 import {
   SiJavascript,
   SiReact,
