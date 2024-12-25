@@ -9,7 +9,7 @@ import {
   Loader2,
   Check,
 } from "lucide-react";
-import { Card } from "./ui/Card";
+import  Card  from "./ui/Card";
 import Input from "./ui/input";
 import Textarea from "./ui/textarea";
 import Button from "./ui/button";
