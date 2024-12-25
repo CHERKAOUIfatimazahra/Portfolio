@@ -8,9 +8,9 @@ import {
   Building2,
   Binary,
 } from "lucide-react";
-import { Card } from "../components/ui/card";
-import Input from "../components/ui/input";
-import Badge from "../components/ui/badge";
+import Card from "./ui/card";
+import Input from "./ui/input";
+import Badge from "../ui/badge";
 
 const EducationCard = ({ education, index }) => {
   const icons = {
