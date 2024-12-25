@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import Card from "./ui/card";
 import Input from "./ui/input";
-import Badge from "../ui/badge";
+import Badge from "./ui/badge";
 
 const EducationCard = ({ education, index }) => {
   const icons = {
