@@ -9,11 +9,11 @@ import {
   Loader2,
   Check,
 } from "lucide-react";
-import { Card } from "../components/ui/card";
-import  Input  from "../components/ui/input";
-import  Textarea  from "../components/ui/textarea";
-import  Button  from "../components/ui/button";
-import  useToast from "../components/ui/use-toast";
+import { Card } from "./ui/Card";
+import Input from "./ui/input";
+import Textarea from "./ui/textarea";
+import Button from "./ui/button";
+import useToast from "./ui/use-toast";
 
 const ContactIcon = ({ icon: Icon, className }) => (
   <div

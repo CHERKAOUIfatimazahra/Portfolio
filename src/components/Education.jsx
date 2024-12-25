@@ -8,7 +8,7 @@ import {
   Building2,
   Binary,
 } from "lucide-react";
-import Card from "./ui/card";
+import Card from "./ui/Card";
 import Input from "./ui/input";
 import Badge from "./ui/badge";
 
