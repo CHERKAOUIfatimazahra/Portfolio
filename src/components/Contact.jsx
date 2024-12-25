@@ -23,6 +23,7 @@ const ContactIcon = ({ icon: Icon, className }) => (
   </div>
 );
 
+
 const ContactCard = ({ contact, index }) => {
   const Icon = contact.icon;
 
