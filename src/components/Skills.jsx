@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Card, CardContent } from "./ui/Card";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Select,
   SelectContent,
@@ -26,11 +26,22 @@ import { FaGlobe, FaNetworkWired, FaSearch } from "react-icons/fa";
 
 const SkillLevel = ({ level }) => {
   const maxLevel = 5;
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <div className="flex gap-1">
+    <div
+      className="flex gap-1"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {[...Array(maxLevel)].map((_, index) => (
-        <div
+        <motion.div
           key={index}
+          initial={{ scale: 1 }}
+          animate={{
+            scale: isHovered && index < level ? 1.2 : 1,
+            transition: { duration: 0.2, delay: index * 0.05 },
+          }}
           className={`h-1.5 w-3 rounded-full ${
             index < level
               ? "bg-gradient-to-r from-primary to-purple-600"
@@ -60,32 +71,57 @@ const SkillCard = ({ title, skills, searchTerm }) => {
   if (filteredSkills.length === 0) return null;
 
   return (
-    <div className="group transform hover:scale-105 transition-all duration-500 ease-out">
-      <Card className="h-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border-none shadow-lg hover:shadow-xl transition-all duration-300">
-        <CardContent className="p-6">
-          <h3 className="text-xl font-bold mb-4 bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent flex items-center gap-2">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+      className="group"
+    >
+      <motion.div
+        whileHover={{ scale: 1.02 }}
+        className="h-full bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 overflow-hidden"
+      >
+        <div className="p-6">
+          <motion.h3
+            className="text-xl font-bold mb-4 bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent flex items-center gap-2"
+            layout
+          >
             {title}
             <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
               ({filteredSkills.length} skills)
             </span>
-          </h3>
+          </motion.h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {filteredSkills.map((skill) => (
-              <div
-                key={skill.name}
-                className="flex flex-col gap-2 p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors duration-300 border border-gray-200 dark:border-gray-700"
-              >
-                <div className="flex items-center gap-3">
-                  <skill.icon className="w-6 h-6 text-primary" />
-                  <span className="font-medium">{skill.name}</span>
-                </div>
-                <SkillLevel level={skill.level} />
-              </div>
-            ))}
+            <AnimatePresence>
+              {filteredSkills.map((skill) => (
+                <motion.div
+                  key={skill.name}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  whileHover={{ scale: 1.05 }}
+                  className="flex flex-col gap-2 p-4 rounded-lg bg-gray-50 dark:bg-gray-700/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-300"
+                >
+                  <div className="flex items-center gap-3">
+                    <motion.div
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <skill.icon className="w-6 h-6 text-primary" />
+                    </motion.div>
+                    <span className="font-medium dark:text-gray-200">
+                      {skill.name}
+                    </span>
+                  </div>
+                  <SkillLevel level={skill.level} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
-        </CardContent>
-      </Card>
-    </div>
+        </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
@@ -93,6 +129,7 @@ const Skills = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
 
+  // Your existing skillsData...
   const skillsData = {
     Frontend: [
       { name: "JavaScript", icon: SiJavascript, level: 4 },
@@ -132,13 +169,6 @@ const Skills = () => {
     );
   }, [selectedCategory]);
 
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-    if (selectedCategory !== "all") {
-      setSelectedCategory("all");
-    }
-  };
-
   const totalResults = useMemo(() => {
     return filteredCategories.reduce((acc, [_, skills]) => {
       const filtered = skills.filter(
@@ -154,29 +184,52 @@ const Skills = () => {
   }, [filteredCategories, searchTerm]);
 
   return (
-    <div className="py-16 w-full bg-gradient-to-b from-transparent to-gray-50/50 dark:to-gray-900/50">
-      <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+    <section className="py-16 w-full bg-gradient-to-b from-transparent via-gray-50/50 to-white dark:via-gray-900/50 dark:to-black">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="max-w-6xl mx-auto px-4"
+      >
+        <motion.h2
+          initial={{ y: -20 }}
+          animate={{ y: 0 }}
+          className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent"
+        >
           Professional Skills
-        </h2>
+        </motion.h2>
 
-        <div className="mb-8 flex flex-col sm:flex-row gap-4">
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          className="mb-8 flex flex-col sm:flex-row gap-4"
+        >
           <div className="relative flex-1">
-            <Input
-              type="text"
-              placeholder="Search skills..."
-              className="pl-10 w-full"
-              value={searchTerm}
-              onChange={handleSearch}
-            />
-            {searchTerm && (
-              <div className="absolute top-full mt-1 text-sm text-gray-500">
-                Found {totalResults} result{totalResults !== 1 ? "s" : ""}
-              </div>
-            )}
+            <div className="relative">
+              <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <Input
+                type="text"
+                placeholder="Search skills..."
+                className="pl-10 w-full bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+            <AnimatePresence>
+              {searchTerm && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="absolute top-full mt-1 text-sm text-gray-500 dark:text-gray-400"
+                >
+                  Found {totalResults} result{totalResults !== 1 ? "s" : ""}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
           <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-            <SelectTrigger className="w-full sm:w-[200px]">
+            <SelectTrigger className="w-full sm:w-[200px] bg-white dark:bg-gray-800">
               <SelectValue placeholder="Select category" />
             </SelectTrigger>
             <SelectContent>
@@ -187,22 +240,23 @@ const Skills = () => {
               ))}
             </SelectContent>
           </Select>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {filteredCategories.map(([category, skills]) => (
-            <SkillCard
-              key={category}
-              title={category}
-              skills={skills}
-              searchTerm={searchTerm}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <AnimatePresence>
+            {filteredCategories.map(([category, skills]) => (
+              <SkillCard
+                key={category}
+                title={category}
+                skills={skills}
+                searchTerm={searchTerm}
+              />
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      </motion.div>
+    </section>
   );
 };
-
 
 export default Skills;
